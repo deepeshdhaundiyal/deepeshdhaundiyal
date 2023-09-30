@@ -1,26 +1,13 @@
-version: 0.0
-os: linux
-files:
-  - source: /aws
-    destination: /usr/local/codedeployresources
-hooks:
-  ApplicationStop:
-    - location: aws/scripts/application-stop.sh
-      timeout: 300
-      runas: root
-  BeforeInstall:
-    - location: aws/scripts/before-install.sh
-      timeout: 300
-      runas: root
-  AfterInstall:
-    - location: aws/scripts/after-install.sh
-      timeout: 300
-      runas: root
-  ApplicationStart:
-    - location: aws/scripts/application-start.sh
-      timeout: 300
-      runas: root
-  ValidateService:
-    - location: aws/scripts/validate-service.sh
-      timeout: 300
-      runas: root
+version: 0.2
+
+phases:
+  build:
+    commands:
+    - echo "This is build phase... Zipping my webpage"
+ 
+  post_build:
+    commands:
+    - echo "Deployed to S3"
+artifacts:
+  files:
+    - '**/*'
